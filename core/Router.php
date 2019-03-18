@@ -9,7 +9,7 @@ class Router
      *
      * @var array
      */
-    public $routes = [
+    private $routes = [
         'GET' => [],
         'POST' => []
     ];
@@ -75,12 +75,12 @@ class Router
      */
     protected function callAction($controller, $action)
     {
-        $controller = "App\\Controllers\\{$controller}";
-        $controller = new $controller;
+        $qualifiedControllerName = "App\\Controllers\\{$controller}";
+        $controller = new $qualifiedControllerName;
 
         if (! method_exists($controller, $action)) {
             throw new Exception(
-                "{$controller} does not respond to the {$action} action."
+                "{$qualifiedControllerName} does not respond to the {$action} action."
             );
         }
 
